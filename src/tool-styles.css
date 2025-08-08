@@ -1,0 +1,933 @@
+/*
+  All .tool-main-container,
+  .tool-card, .bg-card, .tool-stats-grid, 
+  stats/results, section/result blocks, and
+  tool-specific form, inputs, buttons, etc.
+  (Phases 1-5 code)
+*/
+
+/* Main tool wrapper, headings, cards, results, stats grid, stats-block, result-section, dark mode, responsive tweaks, etc. */
+
+.tool-main-container,
+.tool-card,
+.bg-card {
+  background: linear-gradient(120deg, rgba(255,255,255,0.96), rgba(239,245,255,0.85), rgba(243,247,255,0.91) 94%);
+  box-shadow:
+    0 16px 48px -10px rgba(70,110,230,0.18),
+    0 4px 20px 0 rgba(32,50,110,0.11);
+  border-radius: 1.42rem !important;
+  border-width: 1.7px;
+  border-style: solid;
+  border-color: hsl(var(--primary) / 18%);
+  transition:
+    box-shadow 0.23s cubic-bezier(.25,.6,.25,1),
+    background 0.18s cubic-bezier(.44,.33,.26,.9);
+}
+.dark .tool-main-container,
+.dark .tool-card,
+.dark .bg-card {
+  background: linear-gradient(120deg, rgba(33,40,62,0.97), rgba(23,31,47,0.89), rgba(47,54,76,0.97) 92%);
+  border-color: hsl(var(--primary)/33%);
+}
+
+/* Main tool wrapper modernization */
+.tool-main-container,
+.tool-card,
+.bg-card {
+  background: linear-gradient(120deg, rgba(255,255,255,0.90), rgba(225,238,254,0.85), rgba(245,248,255,0.86));
+  box-shadow:
+    0 8px 24px -5px rgba(85,110,180,0.09),
+    0 1.5px 8px 0 rgba(20,30,80,0.04);
+  border-radius: 1.25rem;
+  border: 1.2px solid hsl(var(--border) / 65%);
+  backdrop-filter: blur(13px) saturate(1.55);
+  -webkit-backdrop-filter: blur(13px) saturate(1.55);
+  transition: box-shadow 0.18s cubic-bezier(.42,0,.38,1), background 0.22s cubic-bezier(.44,.33,.26,.9);
+  padding: 2.5rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+/* Prevent double styling for nested cards */
+.tool-card .bg-card,
+.tool-main-container .bg-card {
+  background: inherit !important;
+  box-shadow: none !important;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+/* Dark mode version */
+.dark .tool-main-container,
+.dark .tool-card,
+.dark .bg-card {
+  background: linear-gradient(120deg, rgba(26,30,50,0.92), rgba(27,35,59,0.85), rgba(37,42,70,0.86));
+  border: 1.5px solid hsl(var(--border) / 28%);
+  box-shadow: 0 7px 32px -7px rgba(60,80,180,0.13), 0 2px 8px 0 rgba(10,20,40,0.08);
+}
+
+/* Modern tool headings */
+.tool-main-container h1,
+.tool-card h1 {
+  font-size: 2.1rem;
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.1rem;
+  color: hsl(var(--primary));
+}
+.tool-main-container h2,
+.tool-card h2 {
+  font-size: 1.3rem;
+  font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  font-weight: 500;
+  color: hsl(var(--foreground) / 90%);
+  margin-bottom: 1.1rem;
+}
+.tool-main-container p,
+.tool-card p {
+  color: hsl(var(--foreground) / 80%);
+  font-size: 1.01rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Spread: Reduce wrapper margin in main layout for tools on wider screens */
+@media (min-width: 640px) {
+  .tool-main-container,
+  .tool-card {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .tool-main-container,
+  .tool-card {
+    padding: 3rem 3rem;
+  }
+}
+/* Mobile: Tighter padding */
+@media (max-width: 639px) {
+  .tool-main-container,
+  .tool-card {
+    padding: 1.2rem 0.2rem;
+    margin-bottom: 1.4rem;
+  }
+  .tool-main-container h1 {
+    font-size: 1.4rem;
+  }
+}
+/* Remove default margin from last child for cards */
+.tool-main-container > :last-child,
+.tool-card > :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Modernize hr/border and info block appearance in results/statistics */
+.tool-main-container hr,
+.tool-card hr {
+  border: none;
+  border-top: 1.4px solid hsl(var(--border) / 60%);
+  margin: 1.6rem 0;
+  opacity: 0.8;
+}
+
+/* PHASE 1 END */
+/* The file is now getting long (over 260 lines). Consider asking for a refactor soon if you make more changes! */
+
+/* PHASE 2: Enhanced Tool Page Container Styling (applies to tool pages only) */
+
+/* Stronger visual elevation and focus for tool containers */
+.tool-main-container,
+.tool-card,
+.bg-card {
+  box-shadow:
+    0 10px 32px -8px rgba(50, 90, 220, 0.19),
+    0 3.5px 22px 0 rgba(30,70,190,0.13),
+    0 0.5px 7px 0 rgba(60,120,240,0.07);
+  border-radius: 1.35rem;
+  border-width: 1.7px;
+  border-style: solid;
+  border-color: hsl(var(--primary) / 18%);
+  outline: none;
+  /* Provides more separation and a slightly bolder border */
+}
+.tool-main-container:focus-within,
+.tool-card:focus-within,
+.bg-card:focus-within {
+  box-shadow:
+    0 0 0 3px hsl(var(--primary) / 28%),
+    0 10px 34px -7px rgba(44,80,220,0.23);
+  border-color: hsl(var(--primary) / 60%);
+}
+
+.tool-card {
+  transition:
+    box-shadow 0.26s cubic-bezier(.3,.4,.2,1),
+    border-color 0.24s cubic-bezier(.4,.44,.16,1),
+    transform 0.18s cubic-bezier(.24,.7,.56,1);
+}
+.tool-card:hover,
+.tool-card:focus-within {
+  box-shadow:
+    0 16px 44px -12px rgba(62,108,245,0.21),
+    0 4px 24px 0 rgba(16,42,110,0.12);
+  border-color: hsl(var(--primary) / 54%);
+  transform: translateY(-3px) scale(1.023);
+}
+
+/* Headings and section polish inside tool containers */
+.tool-main-container h1,
+.tool-card h1 {
+  letter-spacing: -0.021em;
+  margin-bottom: 1.35rem;
+  color: hsl(var(--primary));
+  border-bottom: 1.2px solid hsl(var(--primary) / 15%);
+  padding-bottom: 0.25em;
+  box-shadow: 0 1px 0 hsl(var(--primary) / 5%);
+}
+
+.tool-main-container h2,
+.tool-card h2 {
+  color: hsl(var(--foreground) / 96%);
+  font-size: 1.13rem;
+  font-weight: 600;
+  margin-bottom: 0.95rem;
+  margin-top: 1.3rem;
+}
+
+.tool-main-container h3,
+.tool-card h3 {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: hsl(var(--foreground) / 92%);
+  margin-bottom: 0.56rem;
+  margin-top: 1.1rem;
+}
+
+/* Section subtle highlight */
+.tool-main-container section,
+.tool-card section {
+  background: linear-gradient(90deg, hsl(var(--accent)/6%) 0%, transparent 100%);
+  border-radius: 0.76rem;
+  padding: 1.2rem 1rem 1.2rem 1.2rem;
+  margin-bottom: 1.45rem;
+  box-shadow: 0 2px 8px -5px hsl(var(--primary) / 10%);
+}
+.tool-main-container section:last-child,
+.tool-card section:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Accessibility: increase focus for tool actions (e.g., buttons in tool-main) */
+.tool-main-container button:focus-visible,
+.tool-card button:focus-visible,
+.bg-card button:focus-visible {
+  outline: 2.2px solid hsl(var(--primary) / 72%);
+  outline-offset: 1.5px;
+}
+
+/* Inner padding and spacing tweaks for legibility */
+.tool-main-container,
+.tool-card,
+.bg-card {
+  /* Minor padding em tweak for tightness */
+  padding-top: 2.6rem;
+  padding-bottom: 2.2rem;
+  padding-left: 1.44rem;
+  padding-right: 1.44rem;
+}
+@media (min-width:640px) {
+  .tool-main-container,
+  .tool-card {
+    padding-left: 2.3rem;
+    padding-right: 2.3rem;
+  }
+}
+@media (min-width:1024px) {
+  .tool-main-container,
+  .tool-card {
+    padding: 3.15rem 3.15rem;
+  }
+}
+@media (max-width:639px) {
+  .tool-main-container,
+  .tool-card {
+    padding: 1.03rem 0.09rem;
+    margin-bottom: 1.24rem;
+  }
+  .tool-main-container h1 {
+    font-size: 1.16rem;
+    padding-bottom: 0.12em;
+  }
+}
+
+/* PHASE 2 END */
+
+/* PHASE 3: Form Elements & Interactive Components (Tool Pages ONLY) */
+
+/* --- Modernized Inputs & Textareas --- */
+.tool-main-container input,
+.tool-card input,
+.bg-card input,
+.tool-main-container textarea,
+.tool-card textarea,
+.bg-card textarea {
+  border-radius: 0.62rem;
+  border-width: 1.5px;
+  border-style: solid;
+  border-color: hsl(var(--border) / 68%);
+  background: linear-gradient(120deg, rgba(255,255,255,0.97), rgba(243,248,255,0.86));
+  color: hsl(var(--foreground) / 96%);
+  font-size: 1.07rem;
+  box-shadow: 0 1.5px 6px 0 rgba(80,100,175,.05);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.2rem;
+  outline: none;
+  transition:
+    border-color 0.18s cubic-bezier(.44,.23,.28,1),
+    box-shadow 0.20s cubic-bezier(.4,.41,.20,1),
+    background 0.16s;
+}
+.tool-main-container input:focus,
+.tool-main-container textarea:focus,
+.tool-card input:focus,
+.tool-card textarea:focus,
+.bg-card input:focus,
+.bg-card textarea:focus {
+  border-color: hsl(var(--primary) / 85%);
+  background: linear-gradient(120deg, #edf3ff 60%, #f4f6fe 100%);
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 22%);
+}
+
+/* Disabled styling */
+.tool-main-container input:disabled,
+.tool-card input:disabled,
+.bg-card input:disabled,
+.tool-main-container textarea:disabled,
+.tool-card textarea:disabled,
+.bg-card textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: linear-gradient(120deg, #f5f8fc 60%, #eef2fb 100%);
+  color: hsl(var(--muted-foreground) / 67%);
+}
+
+/* Placeholder polish */
+.tool-main-container input::placeholder,
+.tool-main-container textarea::placeholder,
+.tool-card input::placeholder,
+.tool-card textarea::placeholder,
+.bg-card input::placeholder,
+.bg-card textarea::placeholder {
+  color: hsl(var(--muted-foreground) / 78%);
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+}
+
+/* --- Buttons: Modern Flat+Gradient UI --- */
+.tool-main-container button,
+.tool-card button,
+.bg-card button {
+  border-radius: 0.7rem;
+  font-size: 1.01rem;
+  font-weight: 600;
+  background: linear-gradient(120deg, hsl(var(--primary)/93%) 40%, hsl(var(--accent)/75%) 100%);
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 2px 10px -6px hsl(var(--primary)/18%);
+  border: none;
+  padding: 0.7rem 1.45rem;
+  letter-spacing: 0.01em;
+  transition:
+    background 0.2s cubic-bezier(.4,.45,.24,1.00),
+    transform 0.13s cubic-bezier(0.2,.76,.6,1),
+    box-shadow 0.20s,
+    filter 0.13s;
+  cursor: pointer;
+}
+
+.tool-main-container button:hover,
+.tool-card button:hover,
+.bg-card button:hover {
+  background: linear-gradient(117deg, hsl(var(--primary)/96%) 20%, hsl(var(--accent)/91%) 100%);
+  transform: translateY(-1.5px) scale(1.035);
+  box-shadow: 0 5px 16px -7px hsl(var(--primary)/21%);
+  filter: brightness(1.045);
+}
+.tool-main-container button:active,
+.tool-card button:active,
+.bg-card button:active {
+  transform: scale(0.975);
+  filter: brightness(0.97);
+}
+
+.tool-main-container button:disabled,
+.tool-card button:disabled,
+.bg-card button:disabled {
+  opacity: 0.55;
+  background: linear-gradient(120deg, #e3e6ef 50%, #e3e6ef 100%);
+  cursor: not-allowed;
+}
+
+/* Subtle button outline for "outline" variant detected via data-variant OUTLINE (used by shadcn/buttons) */
+.tool-main-container button[data-variant~="outline"],
+.tool-card button[data-variant~="outline"],
+.bg-card button[data-variant~="outline"] {
+  background: transparent !important;
+  color: hsl(var(--primary)) !important;
+  border: 1.5px solid hsl(var(--primary)/65%);
+  box-shadow: none;
+}
+.tool-main-container button[data-variant~="outline"]:hover,
+.tool-card button[data-variant~="outline"]:hover,
+.bg-card button[data-variant~="outline"]:hover {
+  background: hsl(var(--primary)/8%) !important;
+  color: hsl(var(--primary)) !important;
+  border-color: hsl(var(--primary)/98%);
+}
+
+/* --- Subtle Card Gradients & Elevation --- */
+.tool-main-container,
+.tool-card,
+.bg-card {
+  background: linear-gradient(120deg, rgba(255,255,255,0.96), rgba(239,245,255,0.85), rgba(243,247,255,0.91) 94%);
+  box-shadow:
+    0 16px 48px -10px rgba(70,110,230,0.18),
+    0 4px 20px 0 rgba(32,50,110,0.11);
+  border-radius: 1.42rem !important;
+  border-width: 1.7px;
+  border-style: solid;
+  border-color: hsl(var(--primary) / 18%);
+  transition:
+    box-shadow 0.23s cubic-bezier(.25,.6,.25,1),
+    background 0.18s cubic-bezier(.44,.33,.26,.9);
+}
+.dark .tool-main-container,
+.dark .tool-card,
+.dark .bg-card {
+  background: linear-gradient(120deg, rgba(33,40,62,0.97), rgba(23,31,47,0.89), rgba(47,54,76,0.97) 92%);
+  border-color: hsl(var(--primary)/33%);
+}
+
+/* Animated card hover/focus elevation for interactive cards ONLY */
+.tool-card,
+.bg-card {
+  will-change: background, box-shadow, transform;
+}
+
+/* --- Enhanced Feedback for Tool Interactions --- */
+
+/* Button: subtle shadow pulse when focused by keyboard */
+.tool-main-container button:focus-visible,
+.tool-card button:focus-visible,
+.bg-card button:focus-visible {
+  box-shadow: 0 0 0 4px hsl(var(--primary)/23%), 0 3px 14px 1px hsl(var(--primary)/22%);
+  outline: none;
+  filter: brightness(1.08);
+}
+
+/* Input/textarea: slight "bump" with individual focus */
+.tool-main-container input:focus-visible,
+.tool-main-container textarea:focus-visible,
+.tool-card input:focus-visible,
+.tool-card textarea:focus-visible,
+.bg-card input:focus-visible,
+.bg-card textarea:focus-visible {
+  box-shadow:
+    0 0 0 3px hsl(var(--accent) / 19%),
+    0 1.5px 9px 1px hsl(var(--primary) / 17%);
+  outline: none !important;
+}
+
+/* Checkbox/radio-like controls polish (if used) */
+.tool-main-container input[type="checkbox"],
+.tool-card input[type="checkbox"] {
+  accent-color: hsl(var(--primary));
+  box-shadow: 0 2px 8px 0 hsl(var(--primary)/13%);
+}
+.tool-main-container input[type="radio"],
+.tool-card input[type="radio"] {
+  accent-color: hsl(var(--accent));
+  box-shadow: 0 1px 5px 0 hsl(var(--accent)/13%);
+}
+
+/* --- Responsive Alignment for Form Controls in Tools --- */
+@media (max-width:640px) {
+  .tool-main-container input,
+  .tool-main-container textarea,
+  .tool-card input,
+  .tool-card textarea {
+    font-size: 0.98rem;
+    padding: 0.6rem 0.66rem;
+  }
+}
+
+/*--- End PHASE 3 ---*/
+
+/* The file is now extremely long (well over 600 lines). Please consider splitting and refactoring for maintainability! */
+
+/* PHASE 4: Statistics/Results Display (applies to tool pages only) */
+
+/* --- Modern Statistics/Results Grid Layouts --- */
+.tool-main-container .tool-stats-grid,
+.tool-card .tool-stats-grid,
+.bg-card .tool-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem 1.35rem;
+  margin: 2rem 0 1.6rem 0;
+}
+
+@media (min-width: 768px) {
+  .tool-main-container .tool-stats-grid,
+  .tool-card .tool-stats-grid,
+  .bg-card .tool-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.45rem 2.2rem;
+  }
+}
+
+/* --- Statistic Card Blocks --- */
+.tool-stats-block {
+  background: linear-gradient(112deg, rgba(104,123,255,0.07) 0%, rgba(245,246,248,0.8) 100%);
+  border-radius: 1rem;
+  padding: 1.3rem 1.15rem;
+  box-shadow: 0 2.5px 12px -5.5px rgba(70,110,190,0.09);
+  position: relative;
+  border: 1.2px solid hsl(var(--primary)/8%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  transition: box-shadow 0.24s cubic-bezier(.44,.25,.30,1), border 0.18s;
+}
+
+.tool-stats-block:focus-within,
+.tool-stats-block:hover {
+  border: 1.5px solid hsl(var(--primary)/44%);
+  box-shadow: 0 6px 30px -12px hsl(var(--primary) / 21%);
+  z-index: 2;
+}
+
+/* --- Statistic Labels & Values --- */
+.tool-stats-label {
+  font-size: 0.99rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground)/90%);
+  margin-bottom: 0.18em;
+  letter-spacing: 0.01em;
+}
+
+.tool-stats-value {
+  font-size: 1.57rem;
+  font-weight: 700;
+  color: hsl(var(--primary)/95%);
+  margin-bottom: 0.12em;
+  letter-spacing: -0.01em;
+}
+
+.tool-stats-badge {
+  display: inline-block;
+  font-size: 0.80rem;
+  font-weight: 500;
+  border-radius: 0.39em;
+  padding: 0.11rem 0.6em 0.13rem 0.5em;
+  background: linear-gradient(90deg, hsl(var(--accent)/23%) 40%, hsl(var(--primary)/13%) 100%);
+  color: hsl(var(--accent-foreground)/92%);
+  margin-left: 0.5em;
+  margin-bottom: 0.14em;
+  letter-spacing: 0.02em;
+}
+
+/* --- Color Coding for Statistics --- */
+.tool-stats-block-success {
+  background: linear-gradient(112deg, #e8fff9 12%, #f4fff8 95%);
+  border-color: #5ee8b1bb;
+}
+.tool-stats-value-success {
+  color: #14ae5c;
+}
+.tool-stats-block-error {
+  background: linear-gradient(112deg, #fff4f4 15%, #fff9fa 100%);
+  border-color: #f54747cc;
+}
+.tool-stats-value-error {
+  color: #d3203c;
+}
+.tool-stats-block-warning {
+  background: linear-gradient(112deg, #fffbe8 11%, #fffbe8 97%);
+  border-color: #f8d657bb;
+}
+.tool-stats-value-warning {
+  color: #eab308;
+}
+.tool-stats-block-info {
+  background: linear-gradient(112deg, #eaf4ff 18%, #f4faff 100%);
+  border-color: #458fffbb;
+}
+.tool-stats-value-info {
+  color: #2b60c4;
+}
+
+/* --- Section: Results --- */
+.tool-main-container .results-section,
+.tool-card .results-section,
+.bg-card .results-section {
+  background: linear-gradient(92deg, rgba(120,156,255,0.08) 0%, transparent 92%);
+  border-radius: 1.12rem;
+  padding: 1.7rem 1.3rem 1.5rem 1.3rem;
+  box-shadow: 0 1.5px 9px -7px hsl(var(--primary)/15%);
+  border: 1.3px solid hsl(var(--primary)/16%);
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  transition: border 0.21s, box-shadow 0.22s;
+}
+
+@media (max-width: 640px) {
+  .tool-main-container .tool-stats-grid,
+  .tool-card .tool-stats-grid,
+  .bg-card .tool-stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem 0.5rem;
+    margin: 1.4rem 0 1.2rem 0;
+  }
+  .tool-main-container .results-section,
+  .tool-card .results-section,
+  .bg-card .results-section {
+    padding: 0.96rem 0.49rem 0.95rem 0.59rem;
+    margin-bottom: 1.12rem;
+    margin-top: 1.17rem;
+  }
+}
+
+/* --- Result Section Heading Hierarchy --- */
+.results-section-title {
+  font-size: 1.32rem;
+  font-weight: 700;
+  color: hsl(var(--primary)/92%);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.89em;
+  padding-bottom: 0.17em;
+  border-bottom: 1.1px solid hsl(var(--primary)/11%);
+}
+.results-section-subtitle {
+  font-size: 1.07rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground)/80%);
+  margin-bottom: 0.55em;
+}
+
+/* --- Separator for visual grouping within results --- */
+.results-separator {
+  border: none;
+  border-top: 1.4px solid hsl(var(--border)/44%);
+  margin: 1.3rem 0;
+  opacity: 0.77;
+}
+
+/* PHASE 4 END */
+
+/* The file is now extremely long (well over 700 lines). Please consider splitting and refactoring for maintainability! */
+
+/* PHASE 5: Responsive & Dark Mode Enhancements */
+
+/* 1. Smooth Transitions (all interactive elements tool pages) */
+.tool-main-container,
+.tool-card,
+.bg-card,
+.tool-main-container button,
+.tool-card button,
+.bg-card button,
+.tool-main-container input,
+.tool-card input,
+.bg-card input,
+.tool-main-container textarea,
+.tool-card textarea,
+.bg-card textarea,
+.results-section,
+.tool-stats-block {
+  transition:
+    background 0.22s cubic-bezier(.44,.33,.26,.9),
+    color 0.17s cubic-bezier(.19,.8,.34,1),
+    box-shadow 0.23s cubic-bezier(.15,.5,.55,.85),
+    border 0.18s,
+    filter 0.18s,
+    outline 0.15s;
+}
+
+/* 2. Gradients and Borders: Enhanced for dark mode (tool containers, cards) */
+.dark .tool-main-container,
+.dark .tool-card,
+.dark .bg-card {
+  background: linear-gradient(120deg, rgba(18,22,38,0.98), rgba(28,36,58,0.89), rgba(37,43,72,0.97) 92%);
+  border-color: hsl(var(--primary)/30%);
+  box-shadow: 0 9px 36px -7px rgba(54,70,140,0.18), 0 2px 9px 0 rgba(18,34,66,0.13);
+}
+
+.dark .tool-stats-block {
+  background: linear-gradient(117deg, rgba(38,62,100,0.28) 0%, rgba(23,26,44,0.65) 100%);
+  border-color: hsl(var(--primary)/23%);
+  box-shadow: 0 4px 20px -7px rgba(58,110,200,0.16);
+}
+
+.dark .results-section {
+  background: linear-gradient(102deg, rgba(80,118,203,0.10) 0%, rgba(45,54,82,0.66) 84%);
+  border-color: hsl(var(--accent)/19%);
+}
+
+/* Distinct dark color coding for stats blocks */
+.dark .tool-stats-block-success {
+  background: linear-gradient(115deg, #173729 6%, #194738 98%);
+  border-color: #30eeaa89;
+}
+.dark .tool-stats-value-success {
+  color: #30eeaa;
+}
+.dark .tool-stats-block-error {
+  background: linear-gradient(115deg, #3d2222 11%, #4b2428 97%);
+  border-color: #ff8c8c88;
+}
+.dark .tool-stats-value-error {
+  color: #f66383;
+}
+.dark .tool-stats-block-warning {
+  background: linear-gradient(115deg, #49481d 8%, #4a400c 100%);
+  border-color: #fbe367b7;
+}
+.dark .tool-stats-value-warning {
+  color: #ffd900;
+}
+.dark .tool-stats-block-info {
+  background: linear-gradient(117deg, #203d58 8%, #2c3247 99%);
+  border-color: #549dff88;
+}
+.dark .tool-stats-value-info {
+  color: #71cbff;
+}
+
+/* 3. More responsive spacing/typography for tool UI */
+@media (max-width: 400px) {
+  .tool-main-container,
+  .tool-card {
+    padding: 0.45rem 0.03rem !important;
+  }
+  .tool-main-container h1,
+  .tool-card h1 {
+    font-size: 1.05rem !important;
+    padding-bottom: 0.08em !important;
+  }
+  .results-section-title { font-size: 1.05rem !important; }
+}
+@media (max-width: 340px) {
+  .tool-stats-label,
+  .tool-stats-value,
+  .tool-stats-badge,
+  .results-section-title { font-size: 0.8rem !important; }
+}
+
+/* 4. Inputs, Textareas, and Selects: Improved contrast, controls, dark polish */
+.tool-main-container input,
+.tool-card input,
+.bg-card input,
+.tool-main-container textarea,
+.tool-card textarea,
+.bg-card textarea,
+.tool-main-container select,
+.tool-card select,
+.bg-card select {
+  background: linear-gradient(120deg, rgba(255,255,255,0.97), rgba(243,248,255,0.86));
+  color: hsl(var(--foreground));
+  border-radius: 0.62rem;
+  border-width: 1.5px;
+  border-style: solid;
+  border-color: hsl(var(--border)/68%);
+  box-shadow: 0 1.5px 6px 0 rgba(80,100,175,.05);
+  transition:
+    background 0.19s cubic-bezier(.44,.23,.28,1),
+    color 0.17s cubic-bezier(.19,.8,.34,1),
+    border 0.12s,
+    box-shadow 0.18s,
+    outline 0.15s;
+}
+
+.tool-main-container input:focus,
+.tool-main-container textarea:focus,
+.tool-main-container select:focus,
+.tool-card input:focus,
+.tool-card textarea:focus,
+.tool-card select:focus,
+.bg-card input:focus,
+.bg-card textarea:focus,
+.bg-card select:focus {
+  border-color: hsl(var(--primary) / 88%);
+  background: linear-gradient(120deg, #edf5fc 60%, #f4f8fe 100%);
+  box-shadow: 0 0 0 2.5px hsl(var(--primary) / 15%);
+  outline: none;
+}
+
+/* Enhanced dark mode */
+.dark .tool-main-container input,
+.dark .tool-main-container textarea,
+.dark .tool-card input,
+.dark .tool-card textarea,
+.dark .bg-card input,
+.dark .bg-card textarea,
+.dark .tool-main-container select,
+.dark .tool-card select,
+.dark .bg-card select {
+  background: linear-gradient(110deg, rgba(38,42,60,0.95), rgba(27,31,57,0.91));
+  color: #e8eefa;
+  border-color: hsl(var(--primary)/35%);
+}
+
+.dark .tool-main-container input:focus,
+.dark .tool-main-container textarea:focus,
+.dark .tool-main-container select:focus,
+.dark .tool-card input:focus,
+.dark .tool-card textarea:focus,
+.dark .tool-card select:focus,
+.dark .bg-card input:focus,
+.dark .bg-card textarea:focus,
+.dark .bg-card select:focus {
+  border-color: hsl(var(--accent));
+  background: linear-gradient(120deg, #223252 60%, #23263b 100%);
+  box-shadow: 0 0 0 2.5px hsl(var(--accent) / 20%);
+  outline: none;
+}
+
+/* Disabled styling, high contrast for dark */
+.tool-main-container input:disabled,
+.tool-card input:disabled,
+.bg-card input:disabled,
+.tool-main-container textarea:disabled,
+.tool-card textarea:disabled,
+.bg-card textarea:disabled,
+.tool-main-container select:disabled,
+.tool-card select:disabled,
+.bg-card select:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+  background: linear-gradient(120deg, #e5e8ea 72%, #ece9f6 100%);
+  color: hsl(var(--muted-foreground) / 72%);
+}
+
+.dark .tool-main-container input:disabled,
+.dark .tool-card input:disabled,
+.dark .bg-card input:disabled,
+.dark .tool-main-container textarea:disabled,
+.dark .tool-card textarea:disabled,
+.dark .bg-card textarea:disabled,
+.dark .tool-main-container select:disabled,
+.dark .tool-card select:disabled,
+.dark .bg-card select:disabled {
+  background: linear-gradient(120deg, #22262c 62%, #2e3144 100%);
+  color: #858db2;
+}
+
+/* 5. Micro-interactions: Buttons & Cards */
+.tool-main-container button,
+.tool-card button,
+.bg-card button {
+  /* Add slight pulse/shadow/scale on hover/focus for tactile feel */
+  transition:
+    background 0.22s cubic-bezier(.33,.49,.46,1),
+    transform 0.15s cubic-bezier(0.2,.76,.6,1),
+    box-shadow 0.22s,
+    filter 0.16s;
+  position: relative;
+  will-change: background, transform, box-shadow, filter;
+}
+.tool-main-container button:hover,
+.tool-card button:hover,
+.bg-card button:hover {
+  background: linear-gradient(117deg, hsl(var(--primary)/97%) 20%, hsl(var(--accent)/98%) 100%);
+  transform: translateY(-2.5px) scale(1.045);
+  box-shadow: 0 6.5px 20px -7px hsl(var(--primary)/26%);
+  filter: brightness(1.07);
+  z-index: 1;
+}
+.tool-main-container button:active,
+.tool-card button:active,
+.bg-card button:active {
+  filter: brightness(0.94) contrast(1.04);
+  transform: scale(0.965);
+}
+.tool-main-container button:focus-visible,
+.tool-card button:focus-visible,
+.bg-card button:focus-visible {
+  outline: 2.2px solid hsl(var(--primary) / 96%);
+  filter: brightness(1.1);
+  z-index: 2;
+}
+
+/* Smoother card elevation feedback */
+.tool-card,
+.bg-card {
+  transition: box-shadow 0.22s cubic-bezier(.33,.6,.52,1), background 0.22s cubic-bezier(.40,.44,.16,1), border-color 0.15s cubic-bezier(.46,.27,.49,1);
+}
+.tool-card:active,
+.bg-card:active {
+  transform: scale(0.993) translateY(2px);
+  box-shadow: 0 3px 8px -3.5px hsl(var(--primary)/19%);
+}
+
+/* Modern subtle scrollbars (light and dark) for pre, textarea, results */
+.tool-main-container pre,
+.tool-card pre,
+.bg-card pre,
+.tool-main-container textarea,
+.tool-card textarea,
+.bg-card textarea {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary)/38%) hsl(var(--muted)/78%);
+}
+.tool-main-container pre::-webkit-scrollbar,
+.tool-card pre::-webkit-scrollbar,
+.bg-card pre::-webkit-scrollbar,
+.tool-main-container textarea::-webkit-scrollbar,
+.tool-card textarea::-webkit-scrollbar,
+.bg-card textarea::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+  background: hsl(var(--muted)/90%);
+  border-radius: 7px;
+}
+.tool-main-container pre::-webkit-scrollbar-thumb,
+.tool-card pre::-webkit-scrollbar-thumb,
+.bg-card pre::-webkit-scrollbar-thumb,
+.tool-main-container textarea::-webkit-scrollbar-thumb,
+.tool-card textarea::-webkit-scrollbar-thumb,
+.bg-card textarea::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary)/42%);
+  border-radius: 6px;
+}
+
+.dark .tool-main-container pre,
+.dark .tool-card pre,
+.dark .bg-card pre,
+.dark .tool-main-container textarea,
+.dark .tool-card textarea,
+.dark .bg-card textarea {
+  scrollbar-color: #393a63 #16192e;
+}
+.dark .tool-main-container pre::-webkit-scrollbar,
+.dark .tool-card pre::-webkit-scrollbar,
+.dark .bg-card pre::-webkit-scrollbar,
+.dark .tool-main-container textarea::-webkit-scrollbar,
+.dark .tool-card textarea::-webkit-scrollbar,
+.dark .bg-card textarea::-webkit-scrollbar {
+  background: #19203c;
+}
+.dark .tool-main-container pre::-webkit-scrollbar-thumb,
+.dark .tool-card pre::-webkit-scrollbar-thumb,
+.dark .bg-card pre::-webkit-scrollbar-thumb,
+.dark .tool-main-container textarea::-webkit-scrollbar-thumb,
+.dark .tool-card textarea::-webkit-scrollbar-thumb,
+.dark .bg-card textarea::-webkit-scrollbar-thumb {
+  background: #393a63;
+}
+
+/* PHASE 5 END */
+
+/* The file is now extremely long (well over 860 lines including Phase 5).
+ * Please consider splitting and refactoring for maintainability!
+ */
