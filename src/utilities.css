@@ -1,0 +1,64 @@
+@tailwind utilities;
+
+/* Keyframes, floating, gradient waves, animation utility classes, etc. */
+@layer utilities {
+  @keyframes float-vert-slow {
+    0% { transform: translateY(0) scale(1) rotate(0deg); }
+    50% { transform: translateY(-35px) scale(1.07) rotate(-9deg);}
+    100% { transform: translateY(0) scale(1) rotate(0deg); }
+  }
+  @keyframes float-vert-medium {
+    0% { transform: translateY(0) scale(1) rotate(0deg);}
+    50% { transform: translateY(-18px) scale(0.97) rotate(7deg);}
+    100% { transform: translateY(0) scale(1) rotate(0deg);}
+  }
+  @keyframes float-vert-fast {
+    0% { transform: translateY(0) scale(1);}
+    50% { transform: translateY(12px) scale(1.1);}
+    100% { transform: translateY(0) scale(1);}
+  }
+  @keyframes float-horiz-slow {
+    0% { transform: translateX(0) rotate(0deg);}
+    33% { transform: translateX(-15px) rotate(-9deg);}
+    66% { transform: translateX(14px) rotate(7deg);}
+    100% { transform: translateX(0) rotate(0deg);}
+  }
+  @keyframes float-horiz-medium {
+    0% { transform: translateX(0);}
+    50% { transform: translateX(18px);}
+    100% { transform: translateX(0);}
+  }
+  @keyframes float-horiz-fast {
+    0% { transform: translateX(0);}
+    50% { transform: translateX(-10px);}
+    100% { transform: translateX(0);}
+  }
+
+  .animate-float-vert-slow   { animation: float-vert-slow 8.5s ease-in-out infinite alternate; }
+  .animate-float-vert-medium { animation: float-vert-medium 5.5s ease-in-out infinite alternate; }
+  .animate-float-vert-fast   { animation: float-vert-fast 3.7s cubic-bezier(0.4,0.35,0.5,1) infinite alternate; }
+  .animate-float-horiz-slow  { animation: float-horiz-slow 10.2s linear infinite alternate; }
+  .animate-float-horiz-medium{ animation: float-horiz-medium 6.5s ease-in-out infinite alternate; }
+  .animate-float-horiz-fast  { animation: float-horiz-fast 3.9s cubic-bezier(0.7,0.3,0.3,1) infinite alternate; }
+
+  /* Gradient Wave Keyframes */
+  @keyframes wave-move-slow {
+    0% { transform: translateX(0) scaleY(1); }
+    50% { transform: translateX(-28px) scaleY(1.018); }
+    100% { transform: translateX(0) scaleY(1); }
+  }
+  @keyframes wave-move-medium {
+    0% { transform: translateX(0) scaleY(1); }
+    35% { transform: translateX(32px) scaleY(1.022); }
+    100% { transform: translateX(0) scaleY(1); }
+  }
+  @keyframes wave-move-fast {
+    0% { transform: translateX(0) scaleY(1); }
+    40% { transform: translateX(-50px) scaleY(0.988); }
+    100% { transform: translateX(0) scaleY(1); }
+  }
+  .animate-wave-move-slow   { animation: wave-move-slow 18s cubic-bezier(.34,.78,.41,.97) infinite alternate; }
+  .animate-wave-move-medium { animation: wave-move-medium 10.5s cubic-bezier(.40,.77,.51,1.01) infinite alternate; }
+  .animate-wave-move-fast   { animation: wave-move-fast 6.4s cubic-bezier(.46,.76,.83,1) infinite alternate; }
+}
+/* Any extra helpers or micro-interaction helpers can go here */
